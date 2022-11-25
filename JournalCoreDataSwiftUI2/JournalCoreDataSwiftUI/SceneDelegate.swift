@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Création du ContentView dans le viewContext
          let context = CoreDataStack.shared.container.viewContext
-         let contentView = ContentView().environment(\.managedObjectContext, context)
+        let contentView = DepotView().environment(\.managedObjectContext, context)
 
         // Utilisation d'un UIHostingController en tant que contrôleur de fenêtres
         if let windowScene = scene as? UIWindowScene {

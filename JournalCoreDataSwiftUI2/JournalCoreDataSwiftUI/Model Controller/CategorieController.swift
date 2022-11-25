@@ -1,5 +1,5 @@
 //
-//  ArticleController.swift
+//  CategorieController.swift
 //  JournalCoreDataSwiftUI
 //
 //  Created by Daniel Armieux on 25/11/2022.
@@ -10,9 +10,9 @@ import Foundation
 import CoreData
 import Combine
 
-class ArticleController: ObservableObject {
+class CategorieController: ObservableObject {
 
-   @Published var entries: [Article] = []
+   @Published var entries: [Categorie] = []
    
    init() {
        getEntries()
@@ -32,7 +32,7 @@ class ArticleController: ObservableObject {
     // Fonction de lecture des enregistrements
 
    func getEntries() {
-       let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()
+       let fetchRequest: NSFetchRequest<Categorie> = Categorie.fetchRequest()
        let moc = CoreDataStack.shared.mainContext
 
        do {
@@ -46,33 +46,32 @@ class ArticleController: ObservableObject {
 
    // Fonction de création d'un enregistrement
     
-    func createArticle(nom: String, desc:String, qte:Int16, idDepot:UUID) {
-        _ = Article(nom: nom, desc:desc, qte:qte, idDepot:idDepot)
+    func createCategorie(nom: String, desc:String) {
+        _ = Categorie(nom: nom, desc:desc)
        saveToPersistentStore()
    }
 
     // Fonction de mise à jour d'un enregistrement
 
-    func updateArticle(article: Article, nom: String, desc: String, qte:Int16) {
-       article.nom = nom
-       article.desc = desc
-        article.qte = qte
+    func updateCategorie(categorie: Categorie, nom: String, desc: String) {
+       categorie.nom = nom
+       categorie.desc = desc
        saveToPersistentStore()
    }
 
     // Fonctions de suppression d'un enregistrement
 
-    func deleteArticle(article: Article) {
+    func deleteCategorie(categorie: Categorie) {
        let mainC = CoreDataStack.shared.mainContext
-       mainC.delete(article)
+       mainC.delete(categorie)
        saveToPersistentStore()    }
     
-    func deleteArticle(at indexSet: IndexSet) {
+    func deleteCategorie(at indexSet: IndexSet) {
         guard let index = Array(indexSet).first else { return }
         
-        let article = self.entries[index]
+        let categorie = self.entries[index]
         
-        deleteArticle(article: article)
+        deleteCategorie(categorie: categorie)
         
     }
 }

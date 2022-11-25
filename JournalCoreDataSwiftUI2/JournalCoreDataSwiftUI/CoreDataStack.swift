@@ -17,7 +17,7 @@ class CoreDataStack {
 
        lazy var container: NSPersistentContainer = {
 
-           let container = NSPersistentContainer(name: "BDD") // Nom du data model file
+           let container = NSPersistentContainer(name: "JournalCoreDataSwiftUI") // Nom du data model file
 
            container.loadPersistentStores { (_, error) in
                if let error = error {

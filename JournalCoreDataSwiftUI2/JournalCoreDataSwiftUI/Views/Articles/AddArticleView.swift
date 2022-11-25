@@ -1,6 +1,9 @@
 //
-//  AddEntryView.swift
+//  AddArticleView.swift
 //  JournalCoreDataSwiftUI
+//
+//  Created by Daniel Armieux on 25/11/2022.
+//  Copyright © 2022 Nelson Gonzalez. All rights reserved.
 //
 
 import SwiftUI
@@ -10,11 +13,19 @@ import SwiftUI
 struct AddArticleView: View {
     
     @ObservedObject var articleController: ArticleController
+    @ObservedObject var categorieController = CategorieController()
     @State private var nom = ""
     @State private var desc = ""
     @State private var qte = ""
+    @State private var categorie = ""
+    @State public var idDepot: UUID
     @Environment(\.presentationMode) var presentationMode
     @State private var isShowingAlert = false
+    @State public var filtrationDepot : Bool
+    @State public var idDepotChoisi : UUID
+    
+    @State private var selectedStrength = "Mild"
+    let strengths = ["Mild", "Medium", "Mature"]
    
     var body: some View {
         NavigationView {
@@ -23,12 +34,19 @@ struct AddArticleView: View {
             TextField("Nom", text: $nom).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
             TextField("Description", text: $desc).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
             TextField("Quantite", text: $qte).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
+            Picker("Categorie", selection: $selectedStrength) {
+                ForEach(categorieController.entries, id: \.id) { categorie in
+                    Text(categorie.nom!)
+                }
+            }
+            Spacer()
             Button(action: {
-                if !self.nom.isEmpty && !self.desc.isEmpty {
-                    self.articleController.createArticle(nom: self.nom, desc: self.desc, qte: Int16(self.qte) ?? 0)
+                if !self.nom.isEmpty {
+                    self.articleController.createArticle(nom: self.nom, desc: self.desc, qte:Int16(self.qte) ?? 0, idDepot: self.idDepot)
                     self.nom = ""
                     self.desc = ""
-                    self.qte = ""
+                    self.qte = "0"
+
                                   
                     self.presentationMode.wrappedValue.dismiss()
                 } else {
@@ -41,9 +59,9 @@ struct AddArticleView: View {
             Spacer()
         }
         .padding()
-        .navigationBarTitle("Nouveau journal", displayMode: .inline)
+        .navigationBarTitle("Nouvelle article", displayMode: .inline)
         .alert(isPresented: $isShowingAlert) {
-            Alert(title: Text("Attention"), message: Text("Merci de saisir un titre et une description pour votre nouveau journal."), dismissButton: .default(Text("Ok")))
+            Alert(title: Text("Attention"), message: Text("Merci de saisir un nom pour votre nouvelle article."), dismissButton: .default(Text("Ok")))
         }
         }
     }
@@ -52,6 +70,6 @@ struct AddArticleView: View {
 
 struct AddArticleView_Previews: PreviewProvider {
     static var previews: some View {
-        AddArticleView(articleController: ArticleController())
+        AddArticleView(articleController: ArticleController(), idDepot: UUID(), filtrationDepot: false, idDepotChoisi: UUID())
     }
 }
