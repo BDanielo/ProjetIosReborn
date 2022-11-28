@@ -37,8 +37,9 @@ struct AddArticleView: View {
             Picker("Categorie", selection: $selectedCategorie) {
                 ForEach(categorieController.entries, id: \.id) { categorie in
                     Text(categorie.nom!).tag(Optional(categorie))
+                    
                     }
-                }
+                }.id(UUID().uuidString)
 
             Spacer()
 

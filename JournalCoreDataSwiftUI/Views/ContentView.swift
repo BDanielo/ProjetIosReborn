@@ -5,17 +5,41 @@
 
 import SwiftUI
 
+extension UIScreen{
+   static let screenWidth = UIScreen.main.bounds.size.width
+   static let screenHeight = UIScreen.main.bounds.size.height
+   static let screenSize = UIScreen.main.bounds.size
+}
+
+extension TabView {
+
+//    func myTabViewStyle() -> some View {
+//        self.background(Color(UIColor.systemGray6))
+//
+//    }
+}
+
 // Vue principale
 
 struct ContentView: View {
     
-    @Environment(\.colorScheme) var colorScheme
+//    init() {
+//            UITabBar.appearance().isTranslucent = false
+//        }
+    
+    //@Environment(\.colorScheme) var colorScheme
+    
+    @ObservedObject var depotController = DepotController()
+//    @ObservedObject var depot: Depot
+//    @State var NOMdepot = ""
+    
     var body: some View {
         
         VStack{
             Text("Reflexo")
                 .padding(.bottom)
-        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .top).background(Color(UIColor.systemBlue))
+                .foregroundColor(.white)
+        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .top).background(Color(UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha: 1.0)))
         
         TabView {
             DepotView()
@@ -23,27 +47,28 @@ struct ContentView: View {
                     Image(systemName: "house.fill")
                     Text("Depots").foregroundColor(Color(UIColor.white))
                 }.tag(0)
-//            VueCategories()
-//                .tabItem {
-//                    Image(systemName: "square.split.2x2")
-//                    Text("Categories")
-//                }.tag(1)
-//            VueArticles()
-//                .tabItem {
-//                    Image(systemName: "cube.box.fill")
-//                    Text("Articles").foregroundColor(.yellow)
-//                }.tag(2)
+            CategorieView()
+                .tabItem {
+                    Image(systemName: "square.split.2x2")
+                    Text("Categories").foregroundColor(Color(UIColor.white))
+                }.tag(1)
+            ArticleView(filtrationDepot: false, idDepotChoisi: UUID(), nomDepot: "", depotChoisi: depotController.entries[0])
+                .tabItem {
+                    Image(systemName: "cube.box.fill")
+                    Text("Articles").foregroundColor(Color(UIColor.white))
+                }.tag(2)
         }.onAppear {
-            UITabBar.appearance().backgroundColor = UIColor.systemBlue
+            UITabBar.appearance().backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha: 1.0)
             UITabBar.appearance().isTranslucent = false
             UITabBar.appearance().unselectedItemTintColor = .white
+            
             
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

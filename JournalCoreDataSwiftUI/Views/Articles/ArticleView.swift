@@ -30,7 +30,11 @@ struct ArticleView: View {
                 NavigationLink(destination: ArticleDetailView(articleController: self.articleController, article: article, filtrationDepot:filtrationDepot, idDepotChoisi: UUID())) {
                 ArticleRowView(article: article)
                 }
+                .onAppear(){
+                    print("pas de depot choisi")
+                }
             }.onDelete(perform: self.articleController.deleteArticle)
+                    
                 } else {
                     ForEach(articleController.entries, id: \.id) {
                         article in
@@ -39,6 +43,8 @@ struct ArticleView: View {
                         ArticleRowView(article: article)
                         }}
                     }.onDelete(perform: self.articleController.deleteArticle)
+                    
+
                 }
                 
             }
