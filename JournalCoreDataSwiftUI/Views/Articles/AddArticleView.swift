@@ -59,7 +59,7 @@ struct AddArticleView: View {
                 } else {
                     self.isShowingAlert = true
                 }
-                  
+                  print("Article créé")
             }) {
                 Text("Enregistrer").padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white).buttonStyle(BorderlessButtonStyle())
             }.buttonStyle(BorderlessButtonStyle())

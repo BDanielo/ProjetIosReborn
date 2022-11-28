@@ -63,8 +63,10 @@ struct ArticleView: View {
             .navigationBarItems(leading: Button(action: {
                 self.showing2 = true
             }, label: {
-                Text("Depot : "+nomDepot).font(.system(size: 36))
-                Image(systemName: "pencil.circle").font(.title).foregroundColor(.blue)
+                if (filtrationDepot) {
+                    Text("Depot : "+nomDepot).font(.system(size: 36))
+                    Image(systemName: "pencil.circle").font(.title).foregroundColor(.blue)
+                }
             }).sheet(isPresented: $showing2, onDismiss:{
                 nomDepot=depotChoisi.nom!
             }, content: {

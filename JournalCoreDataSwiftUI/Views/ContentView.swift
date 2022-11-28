@@ -59,7 +59,7 @@ struct ContentView: View {
                 }.tag(2)
         }.onAppear {
             UITabBar.appearance().backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha: 1.0)
-            UITabBar.appearance().isTranslucent = false
+            //UITabBar.appearance().isTranslucent = false
             UITabBar.appearance().unselectedItemTintColor = .white
             
             
