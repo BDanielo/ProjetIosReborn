@@ -14,16 +14,49 @@ struct ArticleView: View {
 
     @ObservedObject var articleController = ArticleController()
     @ObservedObject var depotController = DepotController()
+    @ObservedObject var categorieController = CategorieController()
+    
     @State private var showing: Bool = false
     @State private var showing2: Bool = false
+    
     @State public var filtrationDepot = false
     @State public var idDepotChoisi : UUID
+    
     @State public var nomDepot : String
     @State public var depotChoisi: Depot
+    
+    @State private var filtre: String = ""
+    @State private var afficherFiltreCategorie: Bool =  false
+    @State private var filtreCategorieId: UUID?
+    @State private var afficherFiltreNom: Bool =  false
+    @State private var filtreNom:String=""
+    
+    @State private var testNUM:Int16=0
+    
 
+    
+    var filteredArticle: [Article] {
+        switch filtre {
+        case "categorie":
+            afficherFiltreCategorie=true
+            afficherFiltreNom=false
+            return articleController.entries.filter { $0.idCategorie == filtreCategorieId }
+        case "nom":
+            afficherFiltreNom=true
+            afficherFiltreCategorie=false
+            return articleController.entries.filter { $0.nom == filtreNom }
+        default:
+            afficherFiltreNom=false
+            afficherFiltreCategorie=false
+            return articleController.entries
+        }
+    }
         
     var body: some View {
         NavigationView {
+            VStack{
+                VStack{Text("test")}
+                VStack{
             List {
                 if(filtrationDepot==false) {
             ForEach(articleController.entries, id: \.id) { article in
@@ -32,7 +65,7 @@ struct ArticleView: View {
                 }
             }.onDelete(perform: self.articleController.deleteArticle)
                 } else {
-                    ForEach(articleController.entries, id: \.id) {
+                    ForEach(filteredArticle, id: \.id) {
                         article in
                         if(article.idDepot==idDepotChoisi) {
                             NavigationLink(destination: ArticleDetailView(articleController: self.articleController, article: article, filtrationDepot: filtrationDepot, idDepotChoisi: idDepotChoisi)) {
@@ -42,7 +75,7 @@ struct ArticleView: View {
                 }
                 
             }
-            .navigationBarTitle("Articles")
+            .navigationBarTitle(Text("Articles"))
             .navigationBarItems(trailing: Button(action: {
                 self.showing = true
             }, label: {
@@ -57,7 +90,7 @@ struct ArticleView: View {
             .navigationBarItems(leading: Button(action: {
                 self.showing2 = true
             }, label: {
-                Text("Depot : "+nomDepot).font(.system(size: 36))
+                Text(nomDepot).font(.system(size: 36))
                 Image(systemName: "pencil.circle").font(.title).foregroundColor(.blue)
             }).sheet(isPresented: $showing2, onDismiss:{
                 nomDepot=depotChoisi.nom!
@@ -66,6 +99,15 @@ struct ArticleView: View {
             })).onAppear() {
                 nomDepot=depotChoisi.nom!
             }
+            .navigationBarItems(leading: Button(action: {
+//                filtre="categorie"
+//                filtreCategorieId=categorieController.entries[0].idCategorie
+            },label : {
+                Picker("Filtrer", selection:$filtre) {
+                    Text("categorie")
+                    Text("nom")
+                }
+            })).onAppear() {testNUM+=1;}}}
         }
     }
 }

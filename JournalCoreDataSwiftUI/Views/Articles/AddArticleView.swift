@@ -31,22 +31,25 @@ struct AddArticleView: View {
         NavigationView {
             Form {
         VStack {
+            VStack{
             TextField("Nom", text: $nom).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
             TextField("Description", text: $desc).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
             TextField("Quantite", text: $qte).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
+            }
+            Section{
             Picker("Categorie", selection: $selectedCategorie) {
                 ForEach(categorieController.entries, id: \.id) { categorie in
                     Text(categorie.nom!).tag(Optional(categorie))
                     }
                 }
+            }
 
-            Spacer()
 
             Spacer()
 
             
             Spacer()
-            Button(action: {
+            Button("Enregistrer",action: {
                 if !self.nom.isEmpty && !(self.selectedCategorie?.nom ?? "").isEmpty {
                     self.articleController.createArticle(nom: self.nom, desc: self.desc, qte:Int16(self.qte) ?? 0, idDepot: self.idDepot, idCategorie: self.selectedCategorie!.idCategorie!)
                     self.nom = ""
@@ -59,9 +62,7 @@ struct AddArticleView: View {
                     self.isShowingAlert = true
                 }
                   
-            }) {
-                Text("Enregistrer").padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white).buttonStyle(BorderlessButtonStyle())
-            }.buttonStyle(BorderlessButtonStyle())
+            }).buttonStyle(BorderlessButtonStyle()).padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white)
             Spacer()
         }
         .padding()

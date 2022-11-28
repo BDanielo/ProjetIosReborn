@@ -30,8 +30,8 @@ struct AddDepotView: View {
                 }
                   
             }) {
-                Text("Ajouter le depot")
-                }.padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white)
+                Text("Ajouter le depot").buttonStyle(BorderlessButtonStyle())
+                }.padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white).buttonStyle(BorderlessButtonStyle())
             Spacer()
         }
         .padding()

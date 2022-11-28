@@ -11,6 +11,7 @@ import CoreData
 import Combine
 
 class ArticleController: ObservableObject {
+    
 
    @Published var entries: [Article] = []
    

@@ -37,7 +37,7 @@ struct AddCategorieView: View {
                     self.isShowingAlert = true
                 }
                   
-            }).padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white)
+            }).buttonStyle(BorderlessButtonStyle()).padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white)
             Spacer()
         }
         .padding()
