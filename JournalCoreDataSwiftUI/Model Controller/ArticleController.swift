@@ -76,5 +76,7 @@ class ArticleController: ObservableObject {
         deleteArticle(article: article)
         
     }
+    
+    
 }
 
