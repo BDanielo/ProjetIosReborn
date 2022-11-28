@@ -8,28 +8,36 @@ import SwiftUI
 // Vue principale
 
 struct ContentView: View {
-
-    @ObservedObject var entryController = EntryController()
-    @State private var showing: Bool = false
-        
+    
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
-        NavigationView {
-            List {
-            ForEach(entryController.entries, id: \.id) { entry in
-                NavigationLink(destination: DetailView(entryController: self.entryController, entry: entry)) {
-                RowView(entry: entry)
-                }
-            }.onDelete(perform: self.entryController.deleteEntry)
-                
-            }
-            .navigationBarTitle("Journaux")
-            .navigationBarItems(trailing: Button(action: {
-                self.showing = true
-            }, label: {
-                Image(systemName: "plus.circle").font(.title).foregroundColor(.blue)
-            }).sheet(isPresented: $showing, content: {
-                AddEntryView(entryController: self.entryController)
-            }))
+        
+        VStack{
+            Text("Reflexo")
+                .padding(.bottom)
+        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .top).background(Color(UIColor.systemBlue))
+        
+        TabView {
+            DepotView()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Depots").foregroundColor(Color(UIColor.white))
+                }.tag(0)
+//            VueCategories()
+//                .tabItem {
+//                    Image(systemName: "square.split.2x2")
+//                    Text("Categories")
+//                }.tag(1)
+//            VueArticles()
+//                .tabItem {
+//                    Image(systemName: "cube.box.fill")
+//                    Text("Articles").foregroundColor(.yellow)
+//                }.tag(2)
+        }.onAppear {
+            UITabBar.appearance().backgroundColor = UIColor.systemBlue
+            UITabBar.appearance().isTranslucent = false
+            UITabBar.appearance().unselectedItemTintColor = .white
+            
         }
     }
 }
