@@ -68,7 +68,7 @@ struct AddArticleView: View {
                         self.qte = "0"
                         self.presentationMode.wrappedValue.dismiss()
                     } else {
-                        self.isShowingAlert = true
+                        self.isShowingAlert = true 
                     }
                 }
                 
