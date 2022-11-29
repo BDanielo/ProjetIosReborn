@@ -1,15 +1,19 @@
 //
-//  EntryController.swift
+//  ArticleController.swift
 //  JournalCoreDataSwiftUI
+//
+//  Created by Daniel Armieux on 25/11/2022.
+//  Copyright © 2022 Nelson Gonzalez. All rights reserved.
 //
 
 import Foundation
 import CoreData
 import Combine
 
-class EntryController: ObservableObject {
+class ArticleController: ObservableObject {
+    
 
-   @Published var entries: [Entry] = []
+   @Published var entries: [Article] = []
    
    init() {
        getEntries()
@@ -29,7 +33,7 @@ class EntryController: ObservableObject {
     // Fonction de lecture des enregistrements
 
    func getEntries() {
-       let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
+       let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()
        let moc = CoreDataStack.shared.mainContext
 
        do {
@@ -43,33 +47,34 @@ class EntryController: ObservableObject {
 
    // Fonction de création d'un enregistrement
     
-   func createEntry(title: String, entryDescription: String) {
-       _ = Entry(title: title, entryDescription: entryDescription)
+    
+    func createArticle(nom: String, desc:String, qte:Int16, idDepot:UUID, idCategorie:UUID) {
+        _ = Article(nom: nom, desc:desc, qte:qte, idDepot:idDepot, idCategorie:idCategorie)
        saveToPersistentStore()
    }
 
     // Fonction de mise à jour d'un enregistrement
 
-   func updateEntry(entry: Entry, title: String, entryDescription: String) {
-       entry.title = title
-       entry.entryDescription = entryDescription
-    
+    func updateArticle(article: Article, nom: String, desc: String, qte:Int16) {
+       article.nom = nom
+       article.desc = desc
+        article.qte = qte
        saveToPersistentStore()
    }
 
     // Fonctions de suppression d'un enregistrement
 
-    func deleteEntry(entry: Entry) {
+    func deleteArticle(article: Article) {
        let mainC = CoreDataStack.shared.mainContext
-       mainC.delete(entry)
+       mainC.delete(article)
        saveToPersistentStore()    }
     
-    func deleteEntry(at indexSet: IndexSet) {
+    func deleteArticle(at indexSet: IndexSet) {
         guard let index = Array(indexSet).first else { return }
         
-        let entry = self.entries[index]
+        let article = self.entries[index]
         
-        deleteEntry(entry: entry)
+        deleteArticle(article: article)
         
     }
 }
