@@ -11,20 +11,15 @@ extension UIScreen{
    static let screenSize = UIScreen.main.bounds.size
 }
 
-extension TabView {
 
-//    func myTabViewStyle() -> some View {
-//        self.background(Color(UIColor.systemGray6))
-//
-//    }
-}
 
 // Vue principale
 
 struct ContentView: View {
     
 //    init() {
-//            UITabBar.appearance().isTranslucent = false
+//        UIToolbar.appearance().barTintColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha: 1.0)
+//        UIToolbar.appearance().isTranslucent = false
 //        }
     
     //@Environment(\.colorScheme) var colorScheme
@@ -33,13 +28,17 @@ struct ContentView: View {
 //    @ObservedObject var depot: Depot
 //    @State var NOMdepot = ""
     
+    
+    
     var body: some View {
         
         VStack{
             Text("Reflexo")
                 .padding(.bottom)
-                .foregroundColor(.white)
-        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .top).background(Color(UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha: 1.0)))
+                .foregroundColor(.blue)
+                .font(.largeTitle)
+        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .top)
+            
         
         TabView {
             DepotView()
@@ -61,8 +60,6 @@ struct ContentView: View {
             UITabBar.appearance().backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha: 1.0)
             //UITabBar.appearance().isTranslucent = false
             UITabBar.appearance().unselectedItemTintColor = .white
-            
-            
         }
     }
 }
