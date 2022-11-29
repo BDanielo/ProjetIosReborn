@@ -19,10 +19,11 @@ struct MultiLineTextField: UIViewRepresentable {
         text.isEditable = true
         text.isUserInteractionEnabled = true
         text.text = txt
-        text.textColor = .gray
+        text.textColor = .black
         text.backgroundColor = UIColor(red: 239/255, green: 243/255, blue: 244/255, alpha: 1)
         text.font = .systemFont(ofSize: 20)
         text.delegate = context.coordinator
+
         return text
     }
     

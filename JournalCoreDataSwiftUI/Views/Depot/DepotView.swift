@@ -31,7 +31,7 @@ struct DepotView: View {
             }).sheet(isPresented: $showing, content: {
                 AddDepotView(depotController: self.depotController)
             }))
-            .navigationBarItems(leading: Text("Reflexo"))
+            
             
             
         }

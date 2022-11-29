@@ -34,9 +34,15 @@ struct AddArticleView: View {
     var body: some View {
         NavigationView {
             Form {
-            TextField("Nom", text: $nom).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
-            TextField("Description", text: $desc).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
-            TextField("Quantite", text: $qte).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
+                TextField("Nom", text: $nom).placeholder(when: nom.isEmpty) {
+                Text("Nom").foregroundColor(.gray)
+        }.padding().background(Color(red: 239/255, green: 243/255, blue: 244/255)).foregroundColor(.black)
+                TextField("Description", text: $desc).placeholder(when: desc.isEmpty) {
+                Text("Description").foregroundColor(.gray)
+        }.padding().background(Color(red: 239/255, green: 243/255, blue: 244/255)).foregroundColor(.black)
+                TextField("Quantite", text: $qte).placeholder(when: qte.isEmpty) {
+                Text("Quantite").foregroundColor(.gray)
+        }.padding().background(Color(red: 239/255, green: 243/255, blue: 244/255)).foregroundColor(.black)
             Picker("Categorie", selection: $selectedCategorie) {
                 ForEach(categorieController.entries, id: \.id) { categorie in
                     Text(categorie.nom!).tag(Optional(categorie))
@@ -68,7 +74,7 @@ struct AddArticleView: View {
                         self.qte = "0"
                         self.presentationMode.wrappedValue.dismiss()
                     } else {
-                        self.isShowingAlert = true 
+                        self.isShowingAlert = true
                     }
                 }
                 

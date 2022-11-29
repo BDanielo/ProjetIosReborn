@@ -23,8 +23,12 @@ struct AddCategorieView: View {
             Form {
         VStack {
             VStack{
-            TextField("Nom", text: $nom).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
-            TextField("Description", text: $desc).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
+            TextField("Nom", text: $nom).placeholder(when: nom.isEmpty) {
+                Text("Nom").foregroundColor(.gray)
+        }.padding().background(Color(red: 239/255, green: 243/255, blue: 244/255)).foregroundColor(.black)
+            TextField("Description", text: $desc).placeholder(when: desc.isEmpty) {
+                Text("Description").foregroundColor(.gray)
+        }.padding().background(Color(red: 239/255, green: 243/255, blue: 244/255)).foregroundColor(.black)
             }
             Button("Enregistrer",action: {
                 if !self.nom.isEmpty {
@@ -37,7 +41,7 @@ struct AddCategorieView: View {
                     self.isShowingAlert = true
                 }
                   
-            }).padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white)
+            }).buttonStyle(BorderlessButtonStyle()).padding().background(Color.blue).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white)
             Spacer()
         }
         .padding()

@@ -11,24 +11,27 @@ extension UIScreen{
    static let screenSize = UIScreen.main.bounds.size
 }
 
+extension TabView {
 
+//    func myTabViewStyle() -> some View {
+//        self.background(Color(UIColor.systemGray6))
+//
+//    }
+}
 
 // Vue principale
 
 struct ContentView: View {
     
 //    init() {
-//        UIToolbar.appearance().barTintColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha: 1.0)
-//        UIToolbar.appearance().isTranslucent = false
+//            UITabBar.appearance().isTranslucent = false
 //        }
     
-    //@Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var colorScheme
     
     @ObservedObject var depotController = DepotController()
 //    @ObservedObject var depot: Depot
 //    @State var NOMdepot = ""
-    
-    
     
     var body: some View {
         
@@ -38,7 +41,6 @@ struct ContentView: View {
                 .foregroundColor(.blue)
                 .font(.largeTitle)
         }.frame(minWidth: 0, maxWidth: .infinity, alignment: .top)
-            
         
         TabView {
             DepotView()
@@ -51,15 +53,19 @@ struct ContentView: View {
                     Image(systemName: "square.split.2x2")
                     Text("Categories").foregroundColor(Color(UIColor.white))
                 }.tag(1)
-            ArticleView(filtrationDepot: false, idDepotChoisi: UUID(), nomDepot: "", depotChoisi: depotController.entries[0])
+            ArticleView(filtrationDepot: false, depotChoisi: depotController.entries[0])
                 .tabItem {
                     Image(systemName: "cube.box.fill")
                     Text("Articles").foregroundColor(Color(UIColor.white))
                 }.tag(2)
         }.onAppear {
             UITabBar.appearance().backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha: 1.0)
+            UITabBar.appearance()
             //UITabBar.appearance().isTranslucent = false
             UITabBar.appearance().unselectedItemTintColor = .white
+            
+            
+            
         }
     }
 }

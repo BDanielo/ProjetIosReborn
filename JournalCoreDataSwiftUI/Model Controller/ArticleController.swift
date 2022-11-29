@@ -11,6 +11,7 @@ import CoreData
 import Combine
 
 class ArticleController: ObservableObject {
+    
 
    @Published var entries: [Article] = []
    
@@ -76,6 +77,5 @@ class ArticleController: ObservableObject {
         deleteArticle(article: article)
         
     }
-    
 }
 

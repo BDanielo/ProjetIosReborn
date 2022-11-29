@@ -22,9 +22,9 @@ struct CategorieEditView: View {
         NavigationView {
           
             VStack {
-                TextField("\(categorie.nom ?? "Emplacement nom")", text: $nom).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
+                TextField("\(categorie.nom ?? "Emplacement nom")", text: $nom).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255)).foregroundColor(.black)
 
-                MultiLineTextField(txt: $description).frame(height: 200).padding(.bottom)
+                MultiLineTextField(txt: $description).frame(height: 200).padding(.bottom).foregroundColor(.black)
                 
                 Button(action: {
                     if !self.nom.isEmpty && !self.description.isEmpty {
@@ -35,7 +35,7 @@ struct CategorieEditView: View {
                     }
                 }) {
                     Text("Enregistrer")
-                }.frame(width: 90).padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white)
+                }.frame(width: 90).padding().background(Color.blue).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white)
                 Spacer()
             }.onAppear {
                 self.nom = self.categorie.nom!

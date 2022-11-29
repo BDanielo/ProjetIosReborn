@@ -18,7 +18,7 @@ struct EditView: View {
         NavigationView {
           
             VStack {
-                TextField("\(depot.nom ?? "Emplacement nom")", text: $nom).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
+                TextField("\(depot.nom ?? "Emplacement nom")", text: $nom).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255)).foregroundColor(.black)
                 
                 Button(action: {
                     if !self.nom.isEmpty {
@@ -29,7 +29,7 @@ struct EditView: View {
                     }
                 }) {
                     Text("Enregistrer")
-                }.frame(width: 90).padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white)
+                }.frame(width: 90).padding().background(Color.blue).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white)
                 Spacer()
             }.onAppear {
                 self.nom = self.depot.nom!

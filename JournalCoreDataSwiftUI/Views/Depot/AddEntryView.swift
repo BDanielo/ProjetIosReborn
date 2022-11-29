@@ -7,6 +7,21 @@ import SwiftUI
 
 // Affichage d'un enregistrement en mode insertion
 
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
+    }
+}
+
+
+
 struct AddDepotView: View {
     
     @ObservedObject var depotController: DepotController
@@ -18,7 +33,9 @@ struct AddDepotView: View {
         NavigationView {
             Form {
         VStack {
-            TextField("Nom", text: $nom).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
+            TextField("Nom", text: $nom).placeholder(when: nom.isEmpty) {
+                Text("Nom").foregroundColor(.gray)
+        }.padding().background(Color(red: 239/255, green: 243/255, blue: 244/255)).foregroundColor(.black)
             Button(action: {
                 if !self.nom.isEmpty {
                 self.depotController.createDepot(nom: self.nom)
@@ -30,8 +47,8 @@ struct AddDepotView: View {
                 }
                   
             }) {
-                Text("Ajouter le depot")
-                }.padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white)
+                Text("Ajouter le depot").buttonStyle(BorderlessButtonStyle())
+                }.padding().background(Color.blue).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white).buttonStyle(BorderlessButtonStyle())
             Spacer()
         }
         .padding()

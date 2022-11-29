@@ -17,8 +17,8 @@ struct ArticleDetailView: View {
     @ObservedObject var categorieController = CategorieController()
     @State var article: Article
     @State var articleDescription = ""
-    @State public var filtrationDepot : Bool
-    @State public var idDepotChoisi : UUID
+//    @State public var filtrationDepot : Bool
+//    @State public var depotChoisi : Depot?
     
     
     @State private var showing: Bool = false

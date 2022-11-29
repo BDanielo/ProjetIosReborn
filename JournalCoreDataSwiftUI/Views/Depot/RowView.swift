@@ -17,7 +17,7 @@ struct RowView: View {
         VStack(alignment: .leading) {
             HStack {
                 Text(depot.nom ?? "Emplacement nom").font(.title)
-                NavigationLink(destination: ArticleView( filtrationDepot: true, idDepotChoisi: depot.id!, nomDepot: NOMdepot, depotChoisi: depot)) {
+                NavigationLink(destination: ArticleView( filtrationDepot: true, depotChoisi: depot)) {
                 Text("")
                 }.onAppear {
                     NOMdepot = ""
