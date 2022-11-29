@@ -57,7 +57,7 @@ struct AddArticleView: View {
             }
             Button(action: {
                 if (filtrationDepot) {
-                    if !self.nom.isEmpty && !(self.selectedCategorie?.nom ?? "").isEmpty {
+                    if !self.nom.isEmpty && !(self.selectedCategorie?.nom ?? "").isEmpty  {
                         self.articleController.createArticle(nom: self.nom, desc: self.desc, qte:Int16(self.qte) ?? 0, idDepot: self.idDepot, idCategorie: self.selectedCategorie!.idCategorie!)
                         self.nom = ""
                         self.desc = ""
@@ -67,8 +67,8 @@ struct AddArticleView: View {
                         self.isShowingAlert = true
                     }
                 } else {
-                    if !self.nom.isEmpty && !(self.selectedCategorie?.nom ?? "").isEmpty {
-                        self.articleController.createArticle(nom: self.nom, desc: self.desc, qte:Int16(self.qte) ?? 0, idDepot: self.selectedDepot!.id!, idCategorie: self.selectedCategorie!.idCategorie!)
+                    if !self.nom.isEmpty && !(self.selectedCategorie?.nom ?? "").isEmpty && !self.selectedDepot!.nom!.isEmpty {
+                        self.articleController.createArticle(nom: self.nom, desc: self.desc, qte:Int16(self.qte) ?? 0, idDepot: self.selectedDepot!.idDepot!, idCategorie: self.selectedCategorie!.idCategorie!)
                         self.nom = ""
                         self.desc = ""
                         self.qte = "0"

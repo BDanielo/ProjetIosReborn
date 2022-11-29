@@ -21,7 +21,7 @@ struct ArticleView: View {
     
     @State public var filtrationDepot = false
     
-    @State public var depotChoisi: Depot
+    @State public var depotChoisi: Depot?
     
     @State private var filtre: String = ""
     @State private var afficherFiltreCategorie: Bool =  false
@@ -77,18 +77,20 @@ struct ArticleView: View {
                                 NavigationLink(destination: ArticleDetailView(articleController: self.articleController, article: article)) {
                                     ArticleRowView(article: article)
                                 }.onAppear(){
+                                    print("PATATE")
                                     majFiltre()
                                 }
                             }.onDelete(perform: self.articleController.deleteArticle)
                         } else {
                             ForEach(filteredArticle, id: \.id) {
                                 article in
-                                if(article.idDepot==depotChoisi.id) {
+                                if(article.idDepot==depotChoisi!.idDepot) {
                                     NavigationLink(destination: ArticleDetailView(articleController: self.articleController, article: article)) {
                                         ArticleRowView(article: article)
                                     }.onAppear(){
-        
-                                        articleController.getEntries()
+                                        print("PATATE")
+                                        majFiltre()
+                                        
                                     }}
                             }.onDelete(perform: self.articleController.deleteArticle)
                         }
@@ -101,21 +103,10 @@ struct ArticleView: View {
                         Image(systemName: "plus.circle").font(.title).foregroundColor(.blue)
                     }).sheet(isPresented: $showing, content: {
                         if(filtrationDepot==false) {
-                            AddArticleView(articleController: self.articleController, idDepot: UUID(), filtrationDepot:filtrationDepot, idDepotChoisi: depotChoisi.id!)
+                            AddArticleView(articleController: self.articleController, idDepot: UUID(), filtrationDepot:filtrationDepot, idDepotChoisi: UUID())
                         } else {
-                            AddArticleView(articleController: self.articleController, idDepot: depotChoisi.id!, filtrationDepot:filtrationDepot, idDepotChoisi: depotChoisi.id!)
+                            AddArticleView(articleController: self.articleController, idDepot: depotChoisi!.idDepot!, filtrationDepot:filtrationDepot, idDepotChoisi: depotChoisi!.idDepot!)
                         }
-                    }))
-                    .navigationBarItems(leading: Button(action: {
-                        self.showing2 = true
-                    }, label: {
-                        if(filtrationDepot){
-                        Text((depotChoisi.nom ?? "").prefix(10))
-                            Image(systemName: "pencil.circle").font(.title).foregroundColor(.blue)}
-                    }).sheet(isPresented: $showing2, onDismiss:{
-                        //nomDepot=depotChoisi.nom!
-                    }, content: {
-                        EditView(depotController: depotController, depot: depotChoisi)
                     }))
                     .navigationBarItems(leading: Button(action: {
                     },label : {
@@ -127,6 +118,19 @@ struct ArticleView: View {
                             filtre in majFiltre()
                         }
                     }))
+                    .navigationBarItems(leading: Button(action: {
+                        self.showing2 = true
+                    }, label: {
+                        if(filtrationDepot) {
+                            Text((depotChoisi!.nom ?? "").prefix(10))
+                            Image(systemName: "pencil.circle").font(.title).foregroundColor(.blue)}
+                    }).sheet(isPresented: $showing2, onDismiss:{
+                        //nomDepot=depotChoisi.nom!
+                    }, content: {
+                        EditView(depotController: depotController, depot: depotChoisi!)
+                    }))
+                    
+                    
                     
                 }
                 

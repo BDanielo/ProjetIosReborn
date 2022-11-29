@@ -10,6 +10,9 @@ import Combine
 class DepotController: ObservableObject {
 
    @Published var entries: [Depot] = []
+    
+    var articleController = ArticleController()
+    
    
    init() {
        getEntries()
@@ -59,8 +62,13 @@ class DepotController: ObservableObject {
 
     func deleteDepot(depot: Depot) {
        let mainC = CoreDataStack.shared.mainContext
+       let stringIdDepot=(depot.idDepot?.uuidString)!
+       articleController.deleteArticleFromDepot(idDepot:stringIdDepot)
        mainC.delete(depot)
-       saveToPersistentStore()    }
+       saveToPersistentStore()
+        
+
+    }
     
     func deleteDepot(at indexSet: IndexSet) {
         guard let index = Array(indexSet).first else { return }
@@ -68,7 +76,6 @@ class DepotController: ObservableObject {
         let depot = self.entries[index]
         
         deleteDepot(depot: depot)
-        
     }
 }
 

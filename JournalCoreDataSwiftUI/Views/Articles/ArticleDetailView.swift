@@ -29,7 +29,7 @@ struct ArticleDetailView: View {
                 Text("Description : "+(article.desc ?? "Emplacement description")).font(.callout).padding()
                 Text("Quantite : "+(String(article.qte) )).font(.callout).padding()
                 ForEach(depotController.entries, id: \.id) { depot in
-                    if (depot.id == article.idDepot) {
+                    if (depot.idDepot == article.idDepot) {
                         Text("Dépôt : "+depot.nom!).font(.callout).padding()
                     }
                 }

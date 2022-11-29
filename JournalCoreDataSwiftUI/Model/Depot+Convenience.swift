@@ -14,7 +14,7 @@ extension Depot {
 
        self.init(context: context)
 
-       self.id = id
+       self.idDepot = id
        self.nom = nom
    }
 }
