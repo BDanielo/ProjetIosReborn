@@ -14,6 +14,7 @@ struct AddArticleView: View {
     
     @ObservedObject var articleController: ArticleController
     @ObservedObject var categorieController = CategorieController()
+    @ObservedObject var depotController = DepotController()
     @State private var nom = ""
     @State private var desc = ""
     @State private var qte = ""
@@ -26,6 +27,9 @@ struct AddArticleView: View {
     
     @State private var selectedCategorie: Categorie?
     @State private var selectCategorieId: UUID?
+    
+    @State private var selectedDepot: Depot?
+    @State private var selectDepotId: UUID?
    
     var body: some View {
         NavigationView {
@@ -37,9 +41,17 @@ struct AddArticleView: View {
             Picker("Categorie", selection: $selectedCategorie) {
                 ForEach(categorieController.entries, id: \.id) { categorie in
                     Text(categorie.nom!).tag(Optional(categorie))
-                    
-                    }
                 }.id(UUID().uuidString)
+            }
+                if (!filtrationDepot) {
+                    Picker("Dépôt", selection: $selectedDepot) {
+                        ForEach(depotController.entries, id: \.id) { depot in
+                            Text(depot.nom!).tag(Optional(depot))
+                }
+                        
+                        }
+                }
+                    
 
             Spacer()
 
@@ -68,7 +80,7 @@ struct AddArticleView: View {
         .padding()
         .navigationBarTitle("Nouvel article", displayMode: .inline)
         .alert(isPresented: $isShowingAlert) {
-            Alert(title: Text("Attention"), message: Text("Merci de saisir un nom pour votre nouvelle article."), dismissButton: .default(Text("Ok")))
+            Alert(title: Text("Attention"), message: Text("Merci de saisir un nom pour votre nouvel article."), dismissButton: .default(Text("Ok")))
         }
         }
     }

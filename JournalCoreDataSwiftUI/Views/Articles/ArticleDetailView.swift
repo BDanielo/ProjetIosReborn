@@ -13,6 +13,8 @@ import SwiftUI
 
 struct ArticleDetailView: View {
     @ObservedObject var articleController: ArticleController
+    @ObservedObject var depotController = DepotController()
+    @ObservedObject var categorieController = CategorieController()
     @State var article: Article
     @State var articleDescription = ""
     @State public var filtrationDepot : Bool
@@ -26,6 +28,16 @@ struct ArticleDetailView: View {
             VStack {
                 Text("Description : "+(article.desc ?? "Emplacement description")).font(.callout).padding()
                 Text("Quantite : "+(String(article.qte) )).font(.callout).padding()
+                ForEach(depotController.entries, id: \.id) { depot in
+                    if (depot.id == article.idDepot) {
+                        Text("Dépôt : "+depot.nom!).font(.callout).padding()
+                    }
+                }
+                ForEach(categorieController.entries, id: \.id) { categorie in
+                    if (categorie.idCategorie == article.idCategorie!) {
+                        Text("Catégorie : "+categorie.nom!).font(.callout).padding()
+                    }
+                }
                 Spacer()
                 Button(action: {
                     self.showing = true
