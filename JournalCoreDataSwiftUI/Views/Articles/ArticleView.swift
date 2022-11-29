@@ -42,7 +42,14 @@ struct ArticleView: View {
                         if(article.idDepot==idDepotChoisi) {
                             NavigationLink(destination: ArticleDetailView(articleController: self.articleController, article: article, filtrationDepot: filtrationDepot, idDepotChoisi: idDepotChoisi)) {
                         ArticleRowView(article: article)
-                        }}
+                        }
+                        .onAppear(){
+                            articleController.getEntries()
+                            print("refresh")
+                        }
+                            
+                        }
+                        
                     }.onDelete(perform: self.articleController.deleteArticle)
                     
 

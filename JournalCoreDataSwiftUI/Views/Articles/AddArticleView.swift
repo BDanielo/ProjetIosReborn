@@ -50,15 +50,28 @@ struct AddArticleView: View {
                 }.id(UUID().uuidString)
             }
             Button(action: {
-                if !self.nom.isEmpty && !(self.selectedCategorie?.nom ?? "").isEmpty {
-                    self.articleController.createArticle(nom: self.nom, desc: self.desc, qte:Int16(self.qte) ?? 0, idDepot: self.idDepot, idCategorie: self.selectedCategorie!.idCategorie!)
-                    self.nom = ""
-                    self.desc = ""
-                    self.qte = "0"
-                    self.presentationMode.wrappedValue.dismiss()
+                if (filtrationDepot) {
+                    if !self.nom.isEmpty && !(self.selectedCategorie?.nom ?? "").isEmpty {
+                        self.articleController.createArticle(nom: self.nom, desc: self.desc, qte:Int16(self.qte) ?? 0, idDepot: self.idDepot, idCategorie: self.selectedCategorie!.idCategorie!)
+                        self.nom = ""
+                        self.desc = ""
+                        self.qte = "0"
+                        self.presentationMode.wrappedValue.dismiss()
+                    } else {
+                        self.isShowingAlert = true
+                    }
                 } else {
-                    self.isShowingAlert = true
+                    if !self.nom.isEmpty && !(self.selectedCategorie?.nom ?? "").isEmpty {
+                        self.articleController.createArticle(nom: self.nom, desc: self.desc, qte:Int16(self.qte) ?? 0, idDepot: self.selectedDepot!.id!, idCategorie: self.selectedCategorie!.idCategorie!)
+                        self.nom = ""
+                        self.desc = ""
+                        self.qte = "0"
+                        self.presentationMode.wrappedValue.dismiss()
+                    } else {
+                        self.isShowingAlert = true
+                    }
                 }
+                
                   print("Article créé")
             }) {
                 Text("Enregistrer").padding().background(Color.blue).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white).buttonStyle(BorderlessButtonStyle())
