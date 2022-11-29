@@ -32,6 +32,7 @@ struct ArticleView: View {
                 }
                 .onAppear(){
                     print("pas de depot choisi")
+                    articleController.getEntries()
                 }
             }.onDelete(perform: self.articleController.deleteArticle)
                     
