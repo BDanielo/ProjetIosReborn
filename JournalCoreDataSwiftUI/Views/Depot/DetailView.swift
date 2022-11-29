@@ -23,7 +23,7 @@ struct DetailView: View {
                     self.showing = true
                 }) {
                     Text("Modifier")
-                }.frame(width: 90).padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white).sheet(isPresented: $showing) {
+                }.frame(width: 90).padding().background(Color.blue).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white).sheet(isPresented: $showing) {
                     EditView(depotController: self.depotController, depot: self.depot)
                 }
                 }

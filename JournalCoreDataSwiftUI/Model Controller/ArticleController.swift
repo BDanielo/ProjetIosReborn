@@ -77,6 +77,5 @@ class ArticleController: ObservableObject {
         
     }
     
-    
 }
 

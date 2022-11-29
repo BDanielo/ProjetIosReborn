@@ -34,7 +34,6 @@ struct AddArticleView: View {
     var body: some View {
         NavigationView {
             Form {
-        VStack {
             TextField("Nom", text: $nom).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
             TextField("Description", text: $desc).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
             TextField("Quantite", text: $qte).padding().background(Color(red: 239/255, green: 243/255, blue: 244/255))
@@ -43,45 +42,33 @@ struct AddArticleView: View {
                     Text(categorie.nom!).tag(Optional(categorie))
                 }.id(UUID().uuidString)
             }
-                if (!filtrationDepot) {
-                    Picker("Dépôt", selection: $selectedDepot) {
-                        ForEach(depotController.entries, id: \.id) { depot in
-                            Text(depot.nom!).tag(Optional(depot))
-                }
-                        
-                        }
-                }
-                    
-
-            Spacer()
-
-            Spacer()
-
-            
-            Spacer()
+            if (!filtrationDepot) {
+                Picker("Dépôt", selection: $selectedDepot) {
+                    ForEach(depotController.entries, id: \.id) { depot in
+                        Text(depot.nom!).tag(Optional(depot))
+                    }
+                }.id(UUID().uuidString)
+            }
             Button(action: {
                 if !self.nom.isEmpty && !(self.selectedCategorie?.nom ?? "").isEmpty {
                     self.articleController.createArticle(nom: self.nom, desc: self.desc, qte:Int16(self.qte) ?? 0, idDepot: self.idDepot, idCategorie: self.selectedCategorie!.idCategorie!)
                     self.nom = ""
                     self.desc = ""
                     self.qte = "0"
-
-                                  
                     self.presentationMode.wrappedValue.dismiss()
                 } else {
                     self.isShowingAlert = true
                 }
                   print("Article créé")
             }) {
-                Text("Enregistrer").padding().background(Color.green).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white).buttonStyle(BorderlessButtonStyle())
+                Text("Enregistrer").padding().background(Color.blue).clipShape(RoundedRectangle(cornerRadius: 10)).foregroundColor(.white).buttonStyle(BorderlessButtonStyle())
             }.buttonStyle(BorderlessButtonStyle())
-            Spacer()
         }
         .padding()
         .navigationBarTitle("Nouvel article", displayMode: .inline)
         .alert(isPresented: $isShowingAlert) {
             Alert(title: Text("Attention"), message: Text("Merci de saisir un nom pour votre nouvel article."), dismissButton: .default(Text("Ok")))
-        }
+                
         }
     }
     }
