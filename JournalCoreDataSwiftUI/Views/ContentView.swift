@@ -53,7 +53,7 @@ struct ContentView: View {
                     Image(systemName: "square.split.2x2")
                     Text("Categories").foregroundColor(Color(UIColor.white))
                 }.tag(1)
-            ArticleView(filtrationDepot: false, depotChoisi: depotController.entries[0])
+            ArticleView(filtrationDepot: false)
                 .tabItem {
                     Image(systemName: "cube.box.fill")
                     Text("Articles").foregroundColor(Color(UIColor.white))

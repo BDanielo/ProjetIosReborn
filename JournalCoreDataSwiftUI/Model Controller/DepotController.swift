@@ -10,6 +10,9 @@ import Combine
 class DepotController: ObservableObject {
 
    @Published var entries: [Depot] = []
+    
+    var articleController = ArticleController()
+    
    
    init() {
        getEntries()
@@ -40,6 +43,26 @@ class DepotController: ObservableObject {
 
        }
    }
+    
+    // Fonction de lecture des enregistrements
+
+    func getEntriesById(idDepot:UUID) {
+       let fetchRequest: NSFetchRequest<Depot> = Depot.fetchRequest()
+       let moc = CoreDataStack.shared.mainContext
+        let idDepotString=idDepot.uuidString
+
+       fetchRequest.predicate = NSPredicate(
+           format: "idDepot LIKE %@", idDepotString
+       )
+       
+       do {
+           entries = try moc.fetch(fetchRequest)
+            
+       } catch {
+           NSLog("Erreur de lecture de données : \(error)")
+
+       }
+   }
 
    // Fonction de création d'un enregistrement
     
@@ -59,8 +82,13 @@ class DepotController: ObservableObject {
 
     func deleteDepot(depot: Depot) {
        let mainC = CoreDataStack.shared.mainContext
+       let stringIdDepot=(depot.idDepot?.uuidString)!
+       articleController.deleteArticleFromDepot(idDepot:stringIdDepot)
        mainC.delete(depot)
-       saveToPersistentStore()    }
+       saveToPersistentStore()
+        
+
+    }
     
     func deleteDepot(at indexSet: IndexSet) {
         guard let index = Array(indexSet).first else { return }
@@ -68,7 +96,6 @@ class DepotController: ObservableObject {
         let depot = self.entries[index]
         
         deleteDepot(depot: depot)
-        
     }
 }
 

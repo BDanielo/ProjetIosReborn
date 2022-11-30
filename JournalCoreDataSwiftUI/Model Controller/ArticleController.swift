@@ -14,6 +14,7 @@ class ArticleController: ObservableObject {
     
 
    @Published var entries: [Article] = []
+    
    
    init() {
        getEntries()
@@ -44,6 +45,30 @@ class ArticleController: ObservableObject {
 
        }
    }
+    
+    func getEntriesByDepot(idDepot: String) {
+        let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()
+        let moc = CoreDataStack.shared.mainContext
+        
+        fetchRequest.predicate = NSPredicate(
+            format: "idDepot LIKE %@", idDepot
+        )
+
+        do {
+            entries = try moc.fetch(fetchRequest)
+             
+        } catch {
+            NSLog("Erreur de lecture de données : \(error)")
+
+        }
+    }
+    
+    func  deleteArticleFromDepot(idDepot: String) {
+        getEntriesByDepot(idDepot: idDepot)
+        for article in self.entries {
+            deleteArticle(article:article)
+        }
+    }
 
    // Fonction de création d'un enregistrement
     
@@ -55,10 +80,12 @@ class ArticleController: ObservableObject {
 
     // Fonction de mise à jour d'un enregistrement
 
-    func updateArticle(article: Article, nom: String, desc: String, qte:Int16) {
+    func updateArticle(article: Article, nom: String, desc: String, qte:Int16, idDepot:UUID, idCategorie:UUID) {
        article.nom = nom
        article.desc = desc
         article.qte = qte
+        article.idDepot=idDepot
+        article.idCategorie=idCategorie
        saveToPersistentStore()
    }
 

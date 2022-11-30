@@ -23,18 +23,21 @@ struct ArticleDetailView: View {
     
     @State private var showing: Bool = false
     
+    
     var body: some View {
         NavigationView {
             VStack {
-                Text("Description : "+(article.desc ?? "Emplacement description")).font(.callout).padding()
+                Text("Description : "+(article.desc ?? "Emplacement description")).font(.callout).padding().onAppear {
+                }
                 Text("Quantite : "+(String(article.qte) )).font(.callout).padding()
                 ForEach(depotController.entries, id: \.id) { depot in
-                    if (depot.id == article.idDepot) {
-                        Text("Dépôt : "+depot.nom!).font(.callout).padding()
+                    if (depot.idDepot == article.idDepot) {
+                        Text("Dépôt : "+(depot.nom ?? "")).font(.callout).padding()
                     }
                 }
+                
                 ForEach(categorieController.entries, id: \.id) { categorie in
-                    if (categorie.idCategorie == article.idCategorie!) {
+                    if (categorie.idCategorie == article.idCategorie ?? UUID()) {
                         Text("Catégorie : "+categorie.nom!).font(.callout).padding()
                     }
                 }

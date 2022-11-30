@@ -14,7 +14,7 @@
         <attribute name="nom" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Depot" representedClassName="Depot" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="idDepot" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="nom" optional="YES" attributeType="String"/>
     </entity>
     <elements>
