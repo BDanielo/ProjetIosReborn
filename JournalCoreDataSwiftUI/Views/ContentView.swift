@@ -36,7 +36,7 @@ struct ContentView: View {
     var body: some View {
         
         VStack{
-            Text("Reflexo")
+            Text("Stockovore")
                 .padding(.bottom)
                 .foregroundColor(.blue)
                 .font(.largeTitle)
